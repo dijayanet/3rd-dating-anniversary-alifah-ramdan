@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Alifah Nur Habibah - 08.10.04</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream: #f6f1eb;
+      --maroon: #4a1921;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--cream);
+      font-family: 'Poppins', sans-serif;
+      color: var(--maroon);
+      overflow-x: hidden;
+    }
+
+    h1, h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+    }
+
+    /* =========================
+       PAGE SYSTEM
+    ========================= */
+    .page {
+      display: none;
+      min-height: 100vh;
+      width: 100%;
+      padding: 50px 20px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      animation: fade .6s ease;
+    }
+    .page.active { display: flex; }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(15px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* =========================
+       TEXT ENTER ANIMATION
+    ========================= */
+    .page.active > * {
+      animation: slideFromTop .8s cubic-bezier(.22,.61,.36,1) backwards;
+    }
+    .page.active > *:nth-child(1) { animation-delay: .10s; }
+    .page.active > *:nth-child(2) { animation-delay: .25s; }
+    .page.active > *:nth-child(3) { animation-delay: .40s; }
+    .page.active > *:nth-child(4) { animation-delay: .55s; }
+    .page.active > *:nth-child(5) { animation-delay: .70s; }
+    .page.active > *:nth-child(6) { animation-delay: .85s; }
+    .page.active > *:nth-child(7) { animation-delay: 1.00s; }
+    .page.active > *:nth-child(8) { animation-delay: 1.15s; }
+
+    @keyframes slideFromTop {
+      from { opacity: 0; transform: translateY(-60px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .page.active #p4Grid > div {
+      animation: slideFromTop .7s ease backwards;
+    }
+    .page.active #p4Grid > div:nth-child(1) { animation-delay: .55s; }
+    .page.active #p4Grid > div:nth-child(2) { animation-delay: .75s; }
+    .page.active #p4Grid > div:nth-child(3) { animation-delay: .95s; }
+    .page.active > #p4Grid { animation: none; }
+
+    /* =========================
+       FLOATING PHOTOS
+    ========================= */
+    @keyframes floatHeartbeat {
+      0%   { transform: translateY(0) scale(1); }
+      15%  { transform: translateY(-5px) scale(1.04); }
+      30%  { transform: translateY(0) scale(1); }
+      45%  { transform: translateY(-5px) scale(1.05); }
+      60%  { transform: translateY(0) scale(1); }
+      75%  { transform: translateY(-10px) scale(1.02); }
+      100% { transform: translateY(0) scale(1); }
+    }
+
+    .float-photo {
+      animation: floatHeartbeat 3.4s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    /* =========================
+       TYPEWRITER (LETTER BOX)
+    ========================= */
+    .letter-box .line { margin-bottom: 1em; }
+    .letter-box .line:last-child { margin-bottom: 0; }
+
+    .letter-box .char {
+      opacity: 0;
+      transition: opacity .18s ease;
+    }
+    .letter-box .char.visible { opacity: 1; }
+
+    .letter-box .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: currentColor;
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: cursorBlink .8s steps(1) infinite;
+    }
+    @keyframes cursorBlink { 50% { opacity: 0; } }
+
+    /* =========================
+       COMPONENTS
+    ========================= */
+    .btn {
+      background: var(--maroon);
+      color: #fff;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 30px;
+      margin: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      letter-spacing: 1px;
+      transition: .3s;
+    }
+    .btn:hover { transform: scale(1.05); }
+
+    .btn-more {
+      animation: btnPulse 2.4s ease-in-out infinite;
+    }
+    @keyframes btnPulse {
+      0%, 100% { transform: scale(1); }
+      50%      { transform: scale(1.07); }
+    }
+
+    .btn-long {
+      font-size: 12px;
+      line-height: 1.5;
+      padding: 14px 22px;
+      max-width: 90vw;
+      white-space: normal;
+    }
+
+    .btn-skip {
+      margin-top: 12px;
+      background: transparent;
+      color: var(--maroon);
+      border: 1.5px solid var(--maroon);
+      font-size: 12px;
+      padding: 8px 18px;
+    }
+
+    .popup {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--maroon);
+      color: white;
+      padding: 35px 50px;
+      border-radius: 18px;
+      display: none;
+      z-index: 99;
+      text-align: center;
+    }
+    .popup.show { display: block; }
+
+    .grid-pass {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      max-width: 300px;
+      margin-top: 20px;
+    }
+
+    .letter-box {
+      background: var(--maroon);
+      color: #f6f1eb;
+      text-align: left;
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 600px;
+      line-height: 1.85;
+      margin-top: 20px;
+      box-shadow: 0 15px 30px rgba(74,25,33,.25);
+    }
+    .letter-box p { font-size: 14px; }
+    .letter-box .signature {
+      text-align: right;
+      margin-top: 10px;
+      font-style: italic;
+      opacity: .95;
+    }
+
+    .letter-box.serious-box {
+      background: #fff;
+      color: var(--maroon);
+      border: 2px solid var(--maroon);
+      box-shadow: 0 15px 30px rgba(74,25,33,.12);
+    }
+    .letter-box.serious-box .serious-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 22px;
+      text-align: center;
+      margin-bottom: 16px;
+      color: var(--maroon);
+    }
+
+    .letter-box.serious-box .babak-topan {
+      background: linear-gradient(180deg, #fff5f5 0%, #ffeaea 100%);
+      border-left: 4px solid var(--maroon);
+      padding: 14px 16px;
+      border-radius: 8px;
+      margin-top: 4px;
+    }
+
+    .tag {
+      position: absolute;
+      top: 20px; right: 20px;
+      border: 1px solid var(--maroon);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+    }
+
+    .polaroid {
+      background: #fff;
+      padding: 8px 8px 28px 8px;
+      border-radius: 4px;
+      box-shadow: 0 10px 20px rgba(0,0,0,.12);
+      width: 135px;
+    }
+
+    /* =========================
+       FLOATING HEARTS & DOVES
+    ========================= */
+    .floating-hearts span {
+      position: absolute;
+      bottom: -20px;
+      font-size: 20px;
+      animation: heartFloat 6s linear infinite;
+      opacity: .55;
+      pointer-events: none;
+    }
+    .floating-hearts span:nth-child(1) { left: 8%;  animation-delay: 0s; }
+    .floating-hearts span:nth-child(2) { left: 25%; animation-delay: 2s; }
+    .floating-hearts span:nth-child(3) { left: 42%; animation-delay: 1s; }
+    .floating-hearts span:nth-child(4) { left: 60%; animation-delay: 3s; }
+    .floating-hearts span:nth-child(5) { left: 78%; animation-delay: 4s; }
+    .floating-hearts span:nth-child(6) { left: 92%; animation-delay: 2.5s; }
+
+    @keyframes heartFloat {
+      from { transform: translateY(0) rotate(0deg); opacity: 0; }
+      20%  { opacity: .65; }
+      to   { transform: translateY(-450px) rotate(180deg); opacity: 0; }
+    }
+
+    /* =========================
+       DISTANCE PAGE
+    ========================= */
+    .distance-page {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(74,25,33,.06), transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(74,25,33,.05), transparent 30%),
+        var(--cream);
+    }
+
+    .distance-title .small-script {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 25px;
+      opacity: .7;
+    }
+    .distance-title h1 { font-size: 52px; margin: 5px 0; }
+    .distance-title p { letter-spacing: 3px; font-size: 13px; }
+
+    .distance-map {
+      position: relative;
+      width: min(650px, 90vw);
+      height: 280px;
+      margin: 35px auto 15px;
+      background:
+        linear-gradient(rgba(74,25,33,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(74,25,33,.04) 1px, transparent 1px);
+      background-size: 35px 35px;
+      border-radius: 25px;
+      overflow: hidden;
+    }
+
+    .route-line {
+      position: absolute;
+      top: 50%; left: 18%;
+      width: 64%; height: 2px;
+      background: repeating-linear-gradient(
+        to right,
+        var(--maroon) 0px, var(--maroon) 8px,
+        transparent 8px, transparent 15px
+      );
+      animation: routeAppear 2s ease forwards;
+    }
+
+    .location {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      text-align: center;
+      z-index: 5;
+    }
+    .location.majalengka { left: 7%; }
+    .location.kuningan  { right: 7%; }
+
+    .photo-pin {
+      width: 78px; height: 78px;
+      padding: 4px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 8px 20px rgba(0,0,0,.18);
+      animation: floatHeartbeat 3.4s ease-in-out infinite;
+      overflow: hidden;
+    }
+    .photo-pin img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+      font-size: 0;
+      color: transparent;
+      text-indent: -9999px;
+      overflow: hidden;
+    }
+
+    .pin-dot {
+      width: 10px; height: 10px;
+      background: var(--maroon);
+      border-radius: 50%;
+      margin: 8px auto 4px;
+    }
+    .location h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 25px;
+      font-style: italic;
+    }
+    .location small { font-size: 10px; opacity: .7; }
+
+    .plane {
+      position: absolute;
+      top: 38%; left: 18%;
+      font-size: 28px;
+      z-index: 10;
+      animation: fly 4s ease-in-out infinite;
+    }
+
+    .distance-text { max-width: 550px; margin-top: 15px; }
+    .distance-text p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 22px;
+      line-height: 1.4;
+    }
+    .distance-text strong {
+      display: block;
+      margin: 12px 0;
+      letter-spacing: 3px;
+      font-size: 13px;
+    }
+    .distance-text span {
+      display: block;
+      font-size: 12px;
+      opacity: .7;
+      line-height: 1.7;
+    }
+
+    @keyframes routeAppear { from { width: 0; } to { width: 64%; } }
+
+    @keyframes fly {
+      0%   { left: 18%; transform: translateY(0) rotate(0deg); }
+      45%  { transform: translateY(-18px) rotate(-5deg); }
+      50%  { left: 47%; }
+      100% { left: 78%; transform: translateY(0) rotate(5deg); }
+    }
+
+    /* =========================
+       MORE LOVE PAGE (P6)
+    ========================= */
+    .more-page {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(74,25,33,.07), transparent 35%),
+        radial-gradient(circle at 85% 85%, rgba(74,25,33,.06), transparent 35%),
+        var(--cream);
+    }
+
+    .more-title { animation: titleAppear 1.2s ease forwards; }
+    .more-title h1 { font-size: 54px; line-height: 1.05; }
+    .more-title .small-script {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 24px;
+      opacity: .75;
+    }
+
+    .dove-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 18px 0 10px;
+      font-size: 26px;
+    }
+    .dove-row span {
+      animation: doveBob 2.6s ease-in-out infinite;
+      display: inline-block;
+    }
+    .dove-row span:nth-child(2) { animation-delay: .4s; }
+    .dove-row span:nth-child(3) { animation-delay: .8s; }
+    .dove-row span:nth-child(4) { animation-delay: 1.2s; }
+    .dove-row span:nth-child(5) { animation-delay: 1.6s; }
+
+    @keyframes doveBob {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+
+    @keyframes titleAppear {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .title-doves {
+      font-size: 28px;
+      letter-spacing: 12px;
+      margin-bottom: 6px;
+      animation: doveBob 2.6s ease-in-out infinite;
+    }
+
+    .more-letter {
+      background: var(--maroon);
+      color: #f6f1eb;
+      text-align: left;
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 620px;
+      line-height: 1.9;
+      margin-top: 20px;
+      box-shadow: 0 15px 30px rgba(74,25,33,.25);
+    }
+    .more-letter p {
+      font-size: 14px;
+      margin-bottom: 1em;
+    }
+    .more-letter p:last-child { margin-bottom: 0; }
+
+    .more-letter .closing {
+      text-align: right;
+      font-style: italic;
+      margin-top: 18px;
+      opacity: .95;
+    }
+
+    /* =========================
+       SERIOUS PAGE (P7)
+    ========================= */
+    .serious-page {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 25% 20%, rgba(74,25,33,.08), transparent 35%),
+        radial-gradient(circle at 75% 80%, rgba(74,25,33,.06), transparent 35%),
+        var(--cream);
+    }
+
+    .serious-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 44px;
+      line-height: 1.05;
+      animation: titleAppear 1.2s ease forwards;
+    }
+    .serious-sub {
+      letter-spacing: 3px;
+      font-size: 12px;
+      opacity: .7;
+      margin-top: 8px;
+    }
+
+    .serious-divider {
+      font-size: 26px;
+      letter-spacing: 10px;
+      margin: 16px 0 6px;
+      opacity: .8;
+    }
+
+    /* =========================
+       MUSIC BUTTON
+    ========================= */
+    #musicBtn {
+      position: fixed;
+      bottom: 20px; right: 20px;
+      z-index: 999;
+      background: var(--maroon);
+      color: white;
+      border: none;
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="floating-hearts">
+    <span>🤍</span>
+    <span>🕊️</span>
+    <span>♡</span>
+    <span>🤍</span>
+    <span>🕊️</span>
+    <span>♡</span>
+  </div>
+
+  <!-- PAGE 1 -->
+  <div id="p1" class="page active">
+    <div style="position:relative; width:100%; max-width:700px;">
+      <span class="tag">Next</span>
+      <h1 style="font-size:65px; line-height:.9;">Happy<br>Birthday</h1>
+      <p style="letter-spacing:4px; margin-top:10px;">ALIFAH NUR HABIBAH</p>
+
+      <div style="display:flex; gap:15px; justify-content:center; margin-top:35px;">
+        <div class="polaroid" style="transform:rotate(-5deg)">
+          <img class="float-photo" src="foto/foto1.jpg" alt=""
+               style="width:100%; height:160px; object-fit:cover; border-radius:2px;">
+        </div>
+        <div class="polaroid" style="transform:rotate(5deg)">
+          <img class="float-photo" src="foto/foto2.jpg" alt=""
+               style="width:100%; height:160px; object-fit:cover; border-radius:2px; animation-delay:.5s;">
+        </div>
+      </div>
+
+      <p style="font-size:11px; margin-top:40px; opacity:.7;">
+        a little digital memory book built with love, just for you — 08.10.04 🤍
+      </p>
+    </div>
+    <button class="btn" style="margin-top:30px" onclick="go('p1','p2')">Buka Hadiahnya 💌🤍</button>
+  </div>
+
+  <!-- PAGE 2 -->
+  <div id="p2" class="page">
+    <h2 style="font-size:42px;">Pilih Kata Kunci 🔐</h2>
+    <p>untuk membuka hadiah manis ini 🍬</p>
+
+    <div class="grid-pass">
+      <button class="btn" onclick="check('151004')">151004</button>
+      <button class="btn" onclick="check('081004')">081004</button>
+      <button class="btn" onclick="check('08102004')">08102004</button>
+      <button class="btn" onclick="check('101004')">101004</button>
+      <button class="btn" onclick="check('081005')">081005</button>
+      <button class="btn" onclick="check('080804')">080804</button>
+    </div>
+
+    <p style="font-size:11px; margin-top:20px; opacity:.6;">
+      clue: hari di mana bidadari turun ke bumi 🤍
+    </p>
+  </div>
+
+  <!-- DISTANCE -->
+  <div id="pDistance" class="page distance-page">
+    <div class="distance-title">
+      <span class="small-script">Even miles can't change</span>
+      <h1>How Far We Are?</h1>
+      <p>Majalengka ♡ Kuningan</p>
+    </div>
+
+    <div class="distance-map">
+      <div class="route-line"></div>
+
+      <div class="location majalengka">
+        <div class="photo-pin">
+          <img src="foto/majalengka.jpg" alt=""
+               onerror="this.onerror=null;this.src='foto/foto1.jpg';">
+        </div>
+        <div class="pin-dot"></div>
+        <h3>Majalengka</h3>
+        <small>Mas 🤍</small>
+      </div>
+
+      <div class="plane">✈</div>
+
+      <div class="location kuningan">
+        <div class="photo-pin" style="animation-delay:.5s">
+          <img src="foto/kuningan.jpg" alt=""
+               onerror="this.onerror=null;this.src='foto/foto5.jpg';">
+        </div>
+        <div class="pin-dot"></div>
+        <h3>Kuningan</h3>
+        <small>Adek 🤍</small>
+      </div>
+    </div>
+
+    <div class="distance-text">
+      <p>
+        Ada jarak di antara kita,<br>
+        tapi bukan berarti hati kita ikut berjauhan 🤍
+      </p>
+      <strong>MAJALENGKA — KUNINGAN</strong>
+      <span>
+        sejauh apa pun jalannya,<br>
+        Mas tetap tahu ke mana harus pulang 🕊️
+      </span>
+    </div>
+
+    <button class="btn distance-btn" onclick="go('pDistance','p3')">
+      Lanjutkan Cerita →
+    </button>
+  </div>
+
+  <!-- PAGE 3 -->
+  <div id="p3" class="page">
+    <img class="float-photo" src="foto/foto5.jpg" alt=""
+         style="width:210px; height:210px; object-fit:cover; border-radius:50%; border:6px solid white; box-shadow:0 10px 20px rgba(0,0,0,.1); margin-bottom:20px;">
+
+    <h1 style="font-size:48px;">My Favorite<br>Person! 🤍</h1>
+
+    <div class="letter-box">
+      <p class="line">🌹 <b>Selamat ulang tahun, bidadari kecilku, Alifah Nur Habibah sayang.</b></p>
+      <p class="line">Di hari yang suci ini — 08 Oktober — langit seakan berbisik lirih, bahwa malaikat pernah menurunkan satu bintang ke bumi, dan bintang itu bernama <b>kamu</b> 🌙✨</p>
+      <p class="line">Terima kasih telah lahir ke dunia, sayang. Karena hadirmu, duniaku yang tadinya hanya hitam-putih kini berwarna seperti pelangi setelah hujan 🌈🕊️</p>
+      <p class="line">Alifah Nur Habibah... sejak pertama kali aku mengenalmu, aku belajar satu hal: bahwa cinta sejati bukan tentang menemukan manusia yang sempurna, melainkan menemukan seseorang yang membuat setiap kekurangannya justru terasa indah. Dan orang itu adalah <b>kamu</b> — hanya kamu, selalu kamu 🥀💌</p>
+      <p class="line">Semoga di usia barumu ini, setiap tetes air matamu berubah menjadi mutiara kebahagiaan, setiap lelahmu berganti tawa yang tak pernah putus, dan setiap mimpi yang kau simpan diam-diam dalam doa, satu per satu diijabah oleh-Nya 🤲✨</p>
+      <p class="line">Mas akan selalu ada. Di setiap langkahmu, di setiap sujudmu, di setiap detik hidupmu. Karena kamu, Mas percaya pada keajaiban. 🤍🕊️</p>
+    </div>
+
+    <button class="btn" style="margin-top:25px" onclick="go('p3','p4')">Kenapa kamu spesial? →</button>
+  </div>
+
+  <!-- PAGE 4 -->
+  <div id="p4" class="page">
+    <h2 style="font-size:40px;">Kenapa Kamu Spesial? 🤍</h2>
+
+    <div id="p4Grid" style="display:grid; gap:15px; max-width:650px; width:100%; margin-top:20px; text-align:left;">
+
+      <div style="background:#fff; border-radius:15px; padding:18px;">
+        <b>1. Photobox Kita 📸</b><br>
+        <small>Kita cocok banget. Semoga nanti ada ratusan photobox lagi sama kamu 🤍</small><br>
+        <div style="display:flex; gap:8px; margin-top:10px;">
+          <img class="float-photo" src="foto/foto6.jpg" alt=""
+               style="width:50%; height:170px; object-fit:cover; border-radius:10px;">
+          <img class="float-photo" src="foto/foto3.jpg" alt=""
+               style="width:50%; height:170px; object-fit:cover; border-radius:10px; animation-delay:.6s;">
+        </div>
+      </div>
+
+      <div style="background:#fff; border-radius:15px; padding:18px;">
+        <b>2. Anggun di Panggung Gamelan 🎼</b><br>
+        <img class="float-photo" src="foto/foto1.jpg" alt=""
+             style="width:100%; height:220px; object-fit:cover; border-radius:10px; margin-top:10px;">
+      </div>
+
+      <div style="background:#fff; border-radius:15px; padding:18px;">
+        <b>3. Senyum Tulus 🌷</b><br>
+        <img class="float-photo" src="foto/foto4.jpg" alt=""
+             style="width:100%; height:220px; object-fit:cover; border-radius:10px; margin-top:10px; animation-delay:.3s;">
+      </div>
+
+    </div>
+
+    <button class="btn" style="margin-top:25px" onclick="go('p4','p5')">Halaman Terakhir →</button>
+  </div>
+
+  <!-- PAGE 5 -->
+  <div id="p5" class="page">
+    <div class="title-doves">🕊️ 🤍 🕊️</div>
+    <h1 style="font-size:52px; line-height:1.1;">I Love You More</h1>
+    <p style="letter-spacing:3px; margin-top:5px;">ALIFAH NUR HABIBAH</p>
+
+    <div style="display:flex; gap:10px; margin:20px 0; justify-content:center;">
+      <img class="float-photo" src="foto/foto1.jpg" alt=""
+           onerror="this.onerror=null;this.src='foto/foto5.jpg';"
+           style="width:90px; height:110px; border-radius:10px; object-fit:cover;">
+      <img class="float-photo" src="foto/foto4.jpg" alt=""
+           onerror="this.onerror=null;this.src='foto/foto5.jpg';"
+           style="width:90px; height:110px; border-radius:10px; object-fit:cover; animation-delay:.4s;">
+      <img class="float-photo" src="foto/foto5.jpg" alt=""
+           style="width:90px; height:110px; border-radius:10px; object-fit:cover; animation-delay:.8s;">
+    </div>
+
+    <div class="letter-box">
+      <p class="line">💌 Sayangku, Alifah Nur Habibah...</p>
+      <p class="line">Di hari ulang tahunmu ini, izinkan Mas mengucapkan sebuah janji suci — bukan janji yang diucap tanpa makna, tapi janji yang kutulis dengan seluruh isi hatiku 🤍</p>
+      <p class="line">Mas tak menjanjikan langit yang selalu cerah, tapi Mas berjanji akan menjadi payung saat hujanmu turun ☔🌧️</p>
+      <p class="line">Mas tak menjanjikan laut yang selalu tenang, tapi Mas berjanji akan menjadi pelabuhan saat ombakmu datang 🌊⚓</p>
+      <p class="line">Mas tak menjanjikan hidup yang selalu mudah, tapi Mas berjanji akan menggenggam tanganmu — melewati susah dan senang — sampai akhir waktu 🕊️💫</p>
+      <p class="line">Terima kasih telah lahir, terima kasih telah memilih bertahan di samping Mas sampai detik ini. Mas bangga... sangat bangga memilikimu 🤍</p>
+      <p class="line">Selamat ulang tahun yang ke-22, bidadariku... Semoga panjang umur, sehat selalu, dilancarkan rezekinya, dan setiap doa baikmu diijabah oleh Allah SWT 🌙✨</p>
+      <p class="line">Sekarang... pejamkan matamu, sayang. Buatlah satu permintaan. Dan sebutkan nama Mas di dalamnya... ya? 🤍🕊️</p>
+      <p class="line signature"><b>Dengan seluruh cinta yang kupunya,<br>- Ramdan Ahmad Dijaya, S.Pd — Calon Suami Alifah Nur Habibah 💍</b></p>
+    </div>
+
+    <h2 style="margin-top:35px; font-size:38px;">Make a Wish 🎂✨</h2>
+
+    <button class="btn btn-more btn-long" style="margin-top:20px" onclick="go('p5','p7')">
+      💔 Satu Permintaan Serius dari Mas...
+    </button>
+
+    <button class="btn btn-long" style="margin-top:12px; background:transparent; color:var(--maroon); border:1.5px solid var(--maroon);" onclick="go('p5','p6')">
+      Lanjut ke Puisi Terakhir 🕊️🤍
+    </button>
+  </div>
+
+  <!-- PAGE 7 -->
+  <div id="p7" class="page serious-page">
+    <div class="serious-heading">Satu Permintaan<br>Serius dari Mas 💔</div>
+    <p class="serious-sub">TOLONG DIBACA DENGAN HATI YANG TENANG</p>
+    <div class="serious-divider">🤍 🕊️ 🤍</div>
+
+    <button class="btn btn-skip" onclick="skipTypewriter('p7')">⏩ Skip Animasi</button>
+
+    <div class="letter-box serious-box">
+
+      <p class="line serious-title">💔 Adek, Mari Kita Bicara Jujur...</p>
+
+      <p class="line">Adek, mari kita bicara jujur dan pakai logika yang paling jernih. ☕</p>
+
+      <p class="line">Di sini Mas memperjuangkan hubungan ini bukan cuma pakai kata-kata manis, tapi juga lewat pengorbanan nyata. Mas kerja keras, mengajar padat dari pagi sampai sore, bikin laporan, bikin video reels berjam-jam, bikin spanduk, sampai sering kurang tidur demi menata masa depan kita. Di tengah keadaan Mas yang masih serba terbatas, Mas tetap berusaha memenuhi apa yang Adek butuhkan — dari jeans, kuota, uang tunai, transfer, obat-obatan pribadi, jajanin Adek, hadiah buat Adek ratusan ribu, sampai dibeliin casing bening buat dipasang pas foto Mas saat KKN (tapi enggak dipasang), sampai raket hampir seratus ribu. Bahkan di tempat kerja, foto Adek Mas pasang di casing HP dan wallpaper, supaya Mas selalu ingat bahwa hati Mas sudah punya tempat untuk satu perempuan.</p>
+
+      <p class="line">Saat status kita sempat break, Mas tetap memilih menjaga komitmen. Kemarin ada perempuan yang DM Mas, dan Mas tegaskan bahwa Mas sudah punya seseorang yang Mas perjuangkan. Mas tidak menggunakan kata "break" sebagai alasan untuk bertingkah seolah-olah bebas, dekat dengan perempuan lain, atau mencari pengganti.</p>
+
+      <p class="line">Karena itu Mas ingin Adek memahami satu hal. Kalau kita sedang memperbaiki hubungan, jangan jadikan kata "break" sebagai ruang untuk membuka kembali kedekatan dengan orang lain. Mas tidak ingin mengulang kejadian seperti 2024 ataupun persoalan yang muncul belakangan.</p>
+
+      <p class="line">Ada satu hal yang selama ini Mas pendam. Bukan karena Mas enggak percaya sama Adek, tapi karena Mas takut kalau Mas mengatakannya, justru membuat Adek pergi. Hari ini Mas memberanikan diri membicarakannya. Bukan untuk menjatuhkan Adek atau mengungkit masa lalu tanpa tujuan, tetapi supaya kita sama-sama memahami luka yang pernah terjadi dan bisa melangkah lebih baik ke depan. 🤍</p>
+
+      <!-- BABAK TOPAN -->
+      <p class="line"><b>❥ Babak Nol — Topan, November 2024 sampai Oktober 2026</b></p>
+      <div class="letter-box serious-box babak-topan" style="margin-top:0;">
+        <p class="line">Dek, sebelum Mas bicara soal yang lain, ada satu nama yang paling lama Mas pendam. Namanya <b>Topan</b>. Dan ini yang paling lama — dari November 2024, sampai Oktober 2026, masih berjalan.</p>
+
+        <p class="line">Sejak November 2024, Adek sudah cegil ke dia. Cinta mati ke dia. Adek bahkan <b>minta dia temuin Ayah Adek</b> — sedangkan Mas, yang sudah mau 3 tahun bersama Adek, enggak pernah sekali pun Adek suruh buat temuin Ayah Adek. Bahkan sampai awal Oktober 2026 — baru-baru ini — Adek masih chatan sama dia. Masih flirting ke dia.</p>
+
+        <p class="line">Dan lagi-lagi... semesta yang ngasih tahu Mas. Bukan Mas yang cari tahu. Mas enggak pernah nyari. Tapi semesta seakan muak dengan kelakuan Adek, sampai-sampai dia sendiri yang buka semuanya di depan Mas.</p>
+
+        <p class="line">Coba kalau semesta enggak muak — mungkin sampai sekarang Adek masih chatan terus sama Topan. Dan sampai sekarang, <b>Topan masih belum tahu kalau Adek punya Mas</b>. Sudah mau 3 tahun kita bersama, tapi dia enggak tahu apa-apa.</p>
+
+        <p class="line">Kalian pernah ribut — gara-gara Adek dibonceng cowok. Sampai Topan bilang ke Adek, "Jangan aneh-aneh di KKN, soalnya Topan juga enggak aneh-aneh." Sampai akhirnya Adek <b>nembak Topan duluan</b> — dan ditolak. Kata Topan, "Nanti 2029 aja, di ajak nikahnya."</p>
+
+        <p class="line">Adek juga sampai ngobatin dia saat dia sakit. Topan juga pernah ke posko Adek. Kalian duduk bareng. Dan masih banyak lagi yang Mas enggak tahu, dan Mas enggak mau tahu.</p>
+
+        <p class="line">Yang Mas tahu cuma satu, Dek — <b>sampai detik ini, Adek belum jujur ke Mas soal Topan</b>. Mas tahu bukan karena Adek cerita, tapi karena semesta yang buka. Itu yang paling menyakitkan. 🤍</p>
+      </div>
+
+      <!-- BABAK I -->
+      <p class="line"><b>❥ Babak Pertama — Iqbal, November 2024</b><br>
+      Waktu itu kita masih pacaran. Masih punya hubungan. Masih saling menyebut sayang. Tetapi pada saat yang sama, Adek juga menjalin kedekatan dengan Iqbal, sampai akhirnya Adek memilih dia dan meninggalkan Mas.</p>
+      <p class="line">Dunia Mas rasanya runtuh saat itu. Mas enggak pernah menganggap kejadian itu sebagai sesuatu yang sepele. Mas memilih diam karena masih berharap Adek bahagia.</p>
+      <p class="line">Kemudian hubungan itu juga tidak berjalan seperti yang Adek harapkan. Orang yang Adek pilih ternyata juga memiliki hubungan dengan orang lain. Dari sana Mas berharap Adek bisa mengambil pelajaran bahwa mencari kebahagiaan dengan membuka hubungan baru sebelum hubungan lama benar-benar selesai justru bisa melukai banyak orang.</p>
+
+      <!-- BABAK II -->
+      <p class="line"><b>❥ Babak Kedua — Nova, Mei 2026</b><br>
+      Setelah waktu berlalu, luka itu Mas simpan rapat-rapat. Mas berpikir Adek sudah belajar dari kejadian sebelumnya. Tetapi kemudian muncul kembali kedekatan Adek dengan Nova, teman SMP Adek.</p>
+      <p class="line">Menurut apa yang Mas lihat dan Adek ceritakan, Adek sangat mengejar kedekatan itu. Sering chat, VC, bertukar foto, bahkan sampai mengundangnya ke pernikahan Teh Ririn.</p>
+      <p class="line">Yang membuat Mas semakin sakit adalah ketika dibandingkan dengan perlakuan Adek kepada Mas. Kepada Nova, Adek terlihat begitu mudah memberikan perhatian dan membuka kemungkinan. Sementara ketika bersama Mas, ada banyak syarat dan pertimbangan yang harus dipenuhi sebelum Adek mau melangkah lebih jauh.</p>
+      <p class="line">Adek pernah mengatakan bahwa pendidikan bukan penghalang ketika membicarakan Nova. Adek juga pernah mengatakan bahwa tidak masalah memulai dari sederhana. Sedangkan kepada Mas, ada banyak tuntutan mengenai rumah, pendidikan, pernikahan, dan sebagainya. Padahal Mas dan keluarga Mas menerima Adek tanpa menjadikan semua itu sebagai syarat untuk menghargai Adek.</p>
+      <p class="line">Sampai akhirnya Adek menyatakan perasaan kepada Nova, sementara sebelumnya kepada Mas Adek mengatakan bahwa tidak ada rasa apa-apa. Nova kemudian menolak Adek. Dari kejadian itu, Mas berharap Adek bisa memahami bahwa tidak semua orang yang kita kejar akan menjadi orang yang tepat untuk kita.</p>
+
+      <!-- BABAK III -->
+      <p class="line"><b>❥ Babak Ketiga — Rizki, Juli sampai September 2026</b><br>
+      Ini yang paling berat buat Mas, Dek.</p>
+      <p class="line">Menurut penjelasan Adek, pada saat itu posisi hubungan kita memang sedang break. Karena itu Mas tidak ingin mengabaikan penjelasan Adek mengenai status hubungan kita saat itu. Tetapi kalau pada saat hubungan kita belum benar-benar selesai secara emosional, kemudian Adek membangun kedekatan yang sangat jauh dengan Rizki, wajar kalau Mas merasa sangat terluka.</p>
+      <p class="line">Selama KKN, kedekatan Adek dengan Rizki menurut cerita yang Mas ketahui sudah melewati batas yang menurut Mas seharusnya dijaga. Kalian sering bersama, sering bepergian bersama, saling memberi perhatian, dan membangun komunikasi yang sangat dekat seperti pasangan.</p>
+      <p class="line">Adek juga pernah mengatakan kepada Rizki bahwa Adek jomblo dan tidak dekat dengan siapa pun, sementara pada saat itu hubungan Adek dengan Mas belum benar-benar selesai menurut sudut pandang Mas. Di sisi lain, Adek juga masih memiliki persoalan kedekatan dengan Nova. Itulah yang membuat Mas merasa seolah-olah hati Mas harus berhadapan dengan lebih dari satu orang sekaligus.</p>
+      <p class="line">Mas juga tahu bahwa selama KKN, Rizki sangat bergantung kepada perhatian Adek ketika dia sakit. Adek menyiapkan kebutuhan dan memberi perhatian kepadanya. Dari sudut pandang Mas, semua itu semakin membuat batas hubungan kalian terlihat kabur.</p>
+      <p class="line">Mas tidak ingin mengorek atau mengetahui lebih jauh hal-hal pribadi yang terjadi di antara kalian. Mas cuma tahu bahwa kedekatan tersebut sudah cukup untuk menghancurkan hati Mas ketika Mas mengetahuinya.</p>
+      <p class="line">Setelah KKN selesai, Adek dan Rizki dikatakan sudah sepakat untuk tidak berkomunikasi lagi. Bahkan sempat saling memblokir. Tetapi pada 9 September 2026, ternyata komunikasi itu kembali terjadi. Rizki kembali menghubungi Adek dan mengatakan bahwa dia kangen.</p>
+      <p class="line">Padahal sebelumnya Adek sudah mengatakan kepada Mas bahwa komunikasi dengan dia sudah tidak ada lagi sejak Adek KKN. Di sinilah kepercayaan Mas kembali terguncang. Bukan cuma karena Rizki menghubungi Adek, tetapi karena sebelumnya Mas percaya bahwa hubungan dan komunikasi itu benar-benar sudah selesai.</p>
+
+      <!-- TAMBAHAN — 30 SEPTEMBER 2026 -->
+      <p class="line">Dan yang paling menyakitkan, Dek... Setelah ketahuan pada 9 September 2026, Adek sempat berjanji — sungguh-sungguh berjanji — bahwa Adek enggak akan lagi buka blokiran itu. Enggak akan lagi chatan sama dia. Mas percaya. Mas percaya banget saat itu. Tapi ternyata... pada <b>30 September 2026</b>, Adek <b>membuka lagi blokiran ketua KKN Gunung Aci itu</b>. Dan kalian <b>chatan lagi</b> — persis seperti yang Adek janjikan enggak akan terjadi lagi. 🤍</p>
+
+      <p class="line">Mas nggak ngerti lagi harus percaya apa, Dek. Janji yang baru diucapkan beberapa hari sebelumnya... sudah dilanggar lagi. Bukan sama orang baru, tapi sama orang yang sama — yang sudah pernah bikin kita hampir pecah. Kalau janji sendiri susah dipegang, apa lagi janji pernikahan?</p>
+
+      <p class="line">Belum lagi sejak Adek KKN, Mas ternyata tidak bisa melihat story Adek di second Instagram. Belakangan Mas mengetahui bahwa Mas ternyata di-hide dari story tersebut. Di saat yang sama, akun Mas juga di-unfollow dari first Instagram maupun second Instagram Adek. Alasan yang Adek sampaikan adalah karena followers-nya perempuan semua, tetapi di sana tetap ada Nova yang Adek ikuti.</p>
+      <p class="line">Mas tidak mengatakan ini untuk mempermasalahkan setiap orang yang Adek ikuti. Mas cuma ingin menunjukkan kenapa kepercayaan Mas sekarang tidak bisa langsung kembali seperti dulu. Ada beberapa hal yang menurut Mas tidak selaras antara apa yang disampaikan dengan apa yang kemudian Mas temukan.</p>
+
+      <!-- RUANG MAS -->
+      <p class="line"><b>❥ Satu Hal yang Mungkin Adek Enggak Sadar</b><br>
+      Dek, selama ini Mas sering merasa bahwa Mas selalu berada di posisi yang berusaha mempertahankan hubungan ini, bahkan ketika keadaan sedang sulit.</p>
+      <p class="line">Mas selalu berusaha menutup aib Adek. Ketika Adek salah, Mas tetap berusaha membela Adek di depan orang lain karena Mas tidak ingin masalah pribadi kita menjadi konsumsi orang banyak.</p>
+      <p class="line">Mas ingat satu kejadian ketika Adek merasa tidak nyaman karena diperhatikan dan difoto oleh Renis. Saat itu Mas langsung menegur Renis karena Mas merasa Adek perlu dibela. Mas sampai terlibat masalah di tempat ramai dan akhirnya harus menghadapi konsekuensinya sendiri.</p>
+      <p class="line">Mas bukan menceritakan ini untuk meminta penghargaan atau mengungkit jasa. Mas cuma ingin Adek tahu bahwa selama ini Mas selalu berusaha berada di pihak Adek ketika Adek membutuhkan perlindungan. Karena itu Mas juga ingin merasakan hal yang sama dari Adek: ketika Mas benar, tolong hargai dan bela Mas; ketika Mas salah, tegur Mas secara pribadi, jangan membuka aib Mas kepada orang lain.</p>
+
+      <!-- CELAH -->
+      <p class="line"><b>❥ Tentang 9 September dan Celah yang Terbuka Lagi</b><br>
+      Bahkan pada 9 September, ketika akses dan celah itu kembali terbuka, akhirnya dia menghubungi Adek lagi dan mengatakan bahwa dia kangen. Padahal sebelumnya Adek sudah mengatakan kepada Mas bahwa tidak ada komunikasi atau chat-an lagi dengannya sejak Adek KKN.</p>
+      <p class="line">Yang membuat Mas kecewa bukan hanya karena dia kembali menghubungi Adek. Yang membuat Mas mempertanyakan kepercayaan adalah karena sebelumnya Mas percaya dengan ucapan Adek bahwa komunikasi itu sudah tidak ada. Kalau ternyata celahnya masih terbuka, wajar kalau Mas merasa khawatir bahwa kejadian lama bisa terulang kembali.</p>
+      <p class="line">Makanya Mas bilang: jangan membuka celah yang bisa menimbulkan masalah. Kalau ada seseorang dari masa lalu yang kembali menghubungi Adek dengan maksud yang tidak jelas, Mas ingin Adek terbuka dan menjaga batas. Begitu juga Mas — Mas harus melakukan hal yang sama kepada Adek.</p>
+
+      <!-- KEJUJURAN -->
+      <p class="line"><b>❥ Tentang Kejujuran</b><br>
+      Yang paling Mas butuhkan sebenarnya sederhana: kejujuran dan keterbukaan. Kalau ada laki-laki yang menghubungi Adek, cukup terbuka kepada Mas. Tidak perlu menyembunyikan, menghapus, meng-hide story, atau membuat cerita yang berbeda ketika Mas bertanya. Begitu juga sebaliknya. Mas tidak boleh menuntut sesuatu yang Mas sendiri tidak mau lakukan.</p>
+      <p class="line">Tadi ketika Mas menghubungi Adek dan belum mendapat balasan, sementara beberapa menit kemudian Adek membalas chat laki-laki lain, Mas tentu merasa tidak nyaman. Apalagi ketika Mas bertanya dan jawabannya berbeda dengan yang sebenarnya. Yang membuat Mas sakit bukan sekadar siapa yang Adek balas, tetapi rasa bahwa keterbukaan yang sudah kita sepakati kembali goyah.</p>
+
+      <!-- HUBUNGAN KITA -->
+      <p class="line"><b>❥ Tentang Hubungan Kita</b><br>
+      Mas juga tidak mau Adek merasa bahwa karena Mas selalu memaafkan dan selalu menerima Adek kembali, berarti Adek bisa terus melakukan kesalahan lalu menganggap Mas akan selalu ada tanpa batas. Mas ingin kita sama-sama menghargai kesempatan yang sedang kita punya sekarang.</p>
+      <p class="line">Coba posisinya dibalik. Kalau Adek yang terus disakiti, dibohongi, dijadikan pilihan kedua, lalu orang itu baru kembali kepada Adek setelah hubungannya dengan orang lain gagal, tentu Adek juga akan merasa sakit dan tidak dihargai. Mas pun merasakan hal yang sama.</p>
+      <p class="line">Selingkuh dan kebohongan bukan sesuatu yang bisa dianggap sepele dalam sebuah hubungan. Yang Mas harapkan bukan sekadar janji, tetapi perubahan yang benar-benar terlihat dari sikap sehari-hari. Karena setelah menikah nanti, masalah seperti ini bukan hanya akan berdampak kepada Mas dan Adek, tetapi juga kepada rumah tangga yang sedang kita bangun dan keluarga besar kita.</p>
+      <p class="line">Pahami satu hal, Dek: Mas ingin membimbing dan menjaga hubungan ini, bukan mengurung atau menguasai Adek. Mas memang orangnya soft-spoken dan lebih memilih menjelaskan daripada kasar. Tapi kelembutan Mas jangan dianggap sebagai tanda bahwa rasa sakit Mas tidak punya batas.</p>
+      <p class="line">Mas juga ingin kita belajar bahwa ketika sedang emosi atau menghadapi masalah, kita sama-sama kembali kepada kejujuran, komunikasi, istighfar, dan Allah. Bukan saling menyakiti, menyembunyikan sesuatu, atau mencari pelarian kepada orang lain.</p>
+      <p class="line">Mas masih ingin melihat Adek yang dulu Mas kenal: jujur, terbuka, menjaga batas dengan orang lain, dan membuat Mas merasa tenang karena Mas tahu bahwa kata-kata Adek bisa dipercaya.</p>
+
+      <!-- PENUTUP -->
+      <p class="line"><b>❥ Satu Permintaan Terakhir</b><br>
+      Dek, Mas enggak mau kejadian-kejadian seperti itu terulang lagi. Mas sudah cukup lelah. Mas sudah cukup banyak melewati malam dengan pikiran yang berat dan hati yang perih.</p>
+      <p class="line">Mas bukan minta Adek sempurna. Mas juga bukan orang yang sempurna. Mas cuma minta Adek... jangan tinggalin Mas lagi. Jangan putusin Mas lagi. Jangan selingkuhin Mas lagi.</p>
+      <p class="line">Kalau kita memang memilih untuk berjalan bersama, mari sama-sama menjaga hubungan ini dengan kejujuran, kesetiaan, komunikasi, dan tanggung jawab. Mas juga akan berusaha memperbaiki diri. Mas tidak mau hanya menuntut Adek berubah sementara Mas sendiri tidak belajar menjadi pasangan yang lebih baik.</p>
+      <p class="line">Kepercayaan itu harus kita bangun berdua, sedikit demi sedikit, sampai nanti tidak ada lagi kebutuhan untuk saling curiga.</p>
+      <p class="line">Kalau memang kita memilih untuk melangkah menuju pernikahan, mari kita mulai dari sekarang dengan cara yang lebih dewasa: tidak saling menyembunyikan, tidak mencari pelarian ketika ada masalah, tidak membuka kembali hubungan yang seharusnya sudah selesai, dan tidak menjadikan masa lalu sebagai alasan untuk terus saling menyakiti.</p>
+
+      <!-- I LOVE YOU MORE -->
+      <p class="line"><b>❥ I Love You More 🕊️🤍</b><br>
+      Karena pada akhirnya, Dek... mungkin ada satu kalimat yang sampai kapan pun enggak akan pernah Mas lewatkan sedikit pun untuk Adek. Bahkan kalau suatu hari kata-kata Mas sudah enggak sebanyak sekarang, mungkin cuma kalimat ini yang tetap akan Mas bisikkan pelan-pelan kepada Adek:</p>
+      <p class="line" style="text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:26px; letter-spacing:2px; margin: 20px 0;">"I love you more."</p>
+      <p class="line">Bukan cuma sekadar "Mas lebih mencintai Adek", tetapi karena di balik kalimat itu ada seluruh rasa yang mungkin enggak akan pernah cukup dijelaskan dengan kata-kata. Bahwa setiap kali Adek bilang "I love you", Mas akan selalu ingin menjawabnya lebih dalam, lebih jauh, dan lebih lama.</p>
+      <p class="line">Dan kalau suatu hari nanti kita sudah sama-sama tua, rambut sudah memutih, langkah sudah enggak sekuat sekarang, mungkin Mas masih akan mencari tangan Adek, tersenyum kecil, lalu membisikkan kalimat yang sama...</p>
+      <p class="line" style="text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:26px; letter-spacing:2px; margin: 20px 0;">"I love you more." 🕊️🤍</p>
+      <p class="line">Karena mungkin dari sekian banyak kalimat yang pernah Mas ucapkan sepanjang hidup Mas, kalimat itu yang paling Mas ingin Adek ingat sampai kapan pun. 🤍✨</p>
+
+      <p class="line">Mas cuma ingin satu hal dari semua pembicaraan panjang ini:<br>
+      Jangan tinggalin Mas lagi. Jangan selingkuhin Mas lagi. Jangan ulangi luka yang sama.</p>
+
+      <p class="line">Kalau kita masih memilih satu sama lain, mari kali ini benar-benar belajar menjaga satu sama lain.</p>
+
+      <p class="line signature"><b>Yang masih mencintaimu sampai detik ini,<br>- Ramdan Ahmad Dijaya, S.Pd 💍</b></p>
+
+    </div>
+
+    <button class="btn btn-more btn-long" style="margin-top:25px" onclick="go('p7','p6')">
+      Jangan Putusin, Selingkuhin, dan Tinggalin Mas untuk yang Ketiga Kalinya 🕊️🤍
+    </button>
+
+    <button class="btn btn-long" style="margin-top:12px; background:transparent; color:var(--maroon); border:1.5px solid var(--maroon);" onclick="go('p7','p5')">
+      ← Balik ke Surat Ulang Tahun
+    </button>
+  </div>
+
+  <!-- PAGE 6 -->
+  <div id="p6" class="page more-page">
+    <div class="more-title">
+      <span class="small-script">and one more thing...</span>
+      <h1>For You,<br>My Forever 🕊️</h1>
+    </div>
+
+    <div class="dove-row">
+      <span>🕊️</span>
+      <span>🤍</span>
+      <span>🕊️</span>
+      <span>🤍</span>
+      <span>🕊️</span>
+    </div>
+
+    <div class="more-letter">
+      <p>Kalau cinta bisa diukur, Mas sudah mengukurnya dengan ribuan malam yang kuhabiskan memikirkanmu 🌙💫</p>
+
+      <p>Kalau rindu bisa dihitung, Mas sudah menghitungnya dengan setiap helaan napas yang tak pernah lekang oleh waktu 🌬️🤍</p>
+
+      <p>Kalau sayang bisa ditulis, Mas sudah menulisnya dengan tinta emas di langit tujuh lapis ✨🖋️</p>
+
+      <p>Tapi cinta, rindu, dan sayang Mas tidak bisa diukur, tidak bisa dihitung, tidak bisa ditulis — karena terlalu besar, terlalu dalam, terlalu luas untuk kata-kata 🤍🕊️</p>
+
+      <p>Kamu adalah doa yang tak pernah kuminta, tapi selalu kuucap dalam sujudku 🤲
+      <br>Kamu adalah mimpi yang tak pernah kubayangkan, tapi selalu kulihat dalam tidurku 🌙
+      <br>Kamu adalah bintang yang tak pernah kucari, tapi selalu bersinar di langitku ✨</p>
+
+      <p>Alifah Nur Habibah — Adek adalah rumah, tempat Mas pulang, tempat Mas berhenti, tempat Mas tinggal 💒🕊️</p>
+
+      <p>Terima kasih sudah ada, terima kasih sudah bertahan, terima kasih sudah memilih Mas — di antara miliaran manusia di bumi ini 🤍</p>
+
+      <p>Selamat ulang tahun sekali lagi, cintaku 🌹<br>Selamat menjadi milik Mas, selamanya 🤍🕊️</p>
+
+      <p class="closing"><b>Forever yours,<br>- Ramdan Ahmad Dijaya, S.Pd 💍</b></p>
+    </div>
+
+    <button class="btn" style="margin-top:25px" onclick="go('p6','p1')">Kembali ke Awal 🤍</button>
+  </div>
+
+  <!-- POPUP -->
+  <div id="popSalah" class="popup">
+    <div style="font-size:30px">☹️</div>
+    <b>Kata Kunci Salah!</b><br><br>
+    <button class="btn" style="background:white; color:var(--maroon)" onclick="hidePop()">Coba Lagi</button>
+  </div>
+
+  <div id="popBenar" class="popup">
+    <div style="font-size:30px">💖</div>
+    <b>Yayy Berhasil!!</b><br>
+    <small>Kamu inget tanggal lahir sendiri, hebat! 🤍</small><br><br>
+    <button class="btn" style="background:white; color:var(--maroon)" onclick="sukses()">Lanjut</button>
+  </div>
+
+  <audio id="bgm" loop>
+    <source id="bgmSrc" src="music/happy.mp3" type="audio/mpeg">
+  </audio>
+
+  <button id="musicBtn" onclick="toggleMusic()">🎵</button>
+
+  <script>
+    const bgm      = document.getElementById('bgm');
+    const bgmSrc   = document.getElementById('bgmSrc');
+    const musicBtn = document.getElementById('musicBtn');
+
+    let isPlaying = false;
+    let mode = 'happy';
+
+    function wrapCharsInLine(line) {
+      const walker = document.createTreeWalker(line, NodeFilter.SHOW_TEXT, null);
+      const textNodes = [];
+      let n;
+      while ((n = walker.nextNode())) textNodes.push(n);
+
+      textNodes.forEach(tn => {
+        const text = tn.textContent;
+        if (!text) return;
+        const frag = document.createDocumentFragment();
+        for (const ch of text) {
+          const span = document.createElement('span');
+          span.className = 'char';
+          span.textContent = ch;
+          frag.appendChild(span);
+        }
+        tn.parentNode.replaceChild(frag, tn);
+      });
+    }
+
+    function prepareTypewriters() {
+      document.querySelectorAll('.letter-box .line').forEach(line => {
+        if (line.dataset.prepared) return;
+        line.dataset.prepared = '1';
+        wrapCharsInLine(line);
+      });
+    }
+
+    let typeTimer = null;
+
+    function runTypewriter(pageEl) {
+      if (typeTimer) { clearTimeout(typeTimer); typeTimer = null; }
+
+      const boxes = pageEl.querySelectorAll('.letter-box');
+      if (!boxes.length) return;
+
+      boxes.forEach(box => {
+        const oldCursor = box.querySelector('.cursor');
+        if (oldCursor) oldCursor.remove();
+        box.querySelectorAll('.char').forEach(c => c.classList.remove('visible'));
+      });
+
+      const allChars = pageEl.querySelectorAll('.letter-box .char');
+      const cursor = document.createElement('span');
+      cursor.className = 'cursor';
+
+      const isSerious  = pageEl.classList.contains('serious-page');
+      const speed      = isSerious ? 3 : 22;
+      const startDelay = isSerious ? 200 : 900;
+      const chunk      = isSerious ? 3 : 1;
+
+      let i = 0;
+
+      function tick() {
+        if (i >= allChars.length) { cursor.remove(); typeTimer = null; return; }
+
+        for (let k = 0; k < chunk && i < allChars.length; k++) {
+          const c = allChars[i];
+          c.classList.add('visible');
+          c.parentNode.insertBefore(cursor, c.nextSibling);
+          i++;
+        }
+
+        typeTimer = setTimeout(tick, speed);
+      }
+
+      typeTimer = setTimeout(tick, startDelay);
+    }
+
+    function skipTypewriter(pageId) {
+      if (typeTimer) { clearTimeout(typeTimer); typeTimer = null; }
+      const pageEl = document.getElementById(pageId);
+      pageEl.querySelectorAll('.letter-box .char').forEach(c => c.classList.add('visible'));
+      pageEl.querySelectorAll('.letter-box .cursor').forEach(c => c.remove());
+    }
+
+    function go(from, to) {
+      document.getElementById(from).classList.remove('active');
+      const target = document.getElementById(to);
+      target.classList.add('active');
+      window.scrollTo(0, 0);
+
+      if (from === 'p1' && to === 'p2') {
+        playMusic('music/happy.mp3');
+        mode = 'happy';
+      }
+      if (to === 'p3' && mode === 'happy') {
+        playMusic('music/romantis.mp3');
+        mode = 'romantis';
+      }
+      if (to === 'p3' || to === 'p5' || to === 'p7') {
+        runTypewriter(target);
+      }
+    }
+
+    function check(p) {
+      if (p === '081004') {
+        document.getElementById('popBenar').classList.add('show');
+      } else {
+        document.getElementById('popSalah').classList.add('show');
+      }
+    }
+    function hidePop() {
+      document.getElementById('popSalah').classList.remove('show');
+    }
+    function sukses() {
+      document.getElementById('popBenar').classList.remove('show');
+      go('p2', 'pDistance');
+    }
+
+    function playMusic(file) {
+      if (file) { bgmSrc.src = file; bgm.load(); }
+      bgm.volume = 0.5;
+      bgm.play().then(() => {
+        isPlaying = true;
+        musicBtn.innerText = '⏸️';
+      }).catch(() => {});
+    }
+    function toggleMusic() {
+      if (isPlaying) {
+        bgm.pause();
+        musicBtn.innerText = '🎵';
+        isPlaying = false;
+      } else {
+        bgm.play();
+        musicBtn.innerText = '⏸️';
+        isPlaying = true;
+      }
+    }
+
+    prepareTypewriters();
+  </script>
+</body>
+</html>
