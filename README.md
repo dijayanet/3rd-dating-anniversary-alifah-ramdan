@@ -1,31 +1,37 @@
-# 🎂 Birthday Gift Website for Alifah Nur Habibah
+# 🕊️ 3rd Anniversary Gift: Alifah Nur Habibah & Ramdan Ahmad Dijaya, S.Pd
 
-A personalized, interactive digital memory book built with HTML, CSS, and JavaScript. Created as a special birthday gift containing interactive password checks, photo galleries, sweet notes, and background music.
+Sebuah *digital memory book* interaktif yang dibuat khusus untuk merayakan **3 Tahun Hubungan (Dating Anniversary)** Alifah Nur Habibah & Ramdan Ahmad Dijaya. 
 
----
+Proyek ini dibangun murni menggunakan **HTML, CSS, dan Vanilla JavaScript** tanpa *framework* tambahan, dibuat dengan penuh cinta dan dedikasi.
 
-## 📸 Preview & Features
+## ✨ Fitur Utama
+- **Interactive Password**: Hanya orang tertentu yang bisa masuk dengan menebak tanggal jadian.
+- **Typewriter Effect**: Teks pada surat muncul perlahan seperti sedang diketik.
+- **Floating & Heartbeat Animation**: Foto-foto bergerak mengambang dan berdenyut lembut seperti detak jantung.
+- **Distance Map**: Animasi pesawat yang menghubungkan Majalengka dan Kuningan.
+- **Audio Background**: Musik romantis yang menyertai setiap perpindahan halaman.
+- **Responsive Design**: Nyaman dibuka di HP maupun Laptop.
 
-- **Interactive Pages:** Smooth page navigation and step-by-step interactive flows.
-- **Passcode Protection:** Interactive password quiz with hint about her special date (`081004`).
-- **Background Music Player:** Floating audio control button to play/pause background music seamlessly.
-- **Photo Memories:** Polaroid and styled image frames for precious moments.
-- **Custom Design:** Responsive layout with elegant typography (*Cormorant Garamond* & *Poppins*).
-
----
-
-## 📁 Project Structure
+## 📂 Struktur Folder
+Pastikan kamu meletakkan file foto di dalam folder `foto/` dan musik di dalam folder `music/`:
 
 ```text
-birthday-alifah/
-├── index.html        # Main HTML file with CSS & JS
-├── README.md         # Documentation file
-├── foto/             # Folder for photo assets
-│   ├── foto1.jpg
-│   ├── foto2.jpg
-│   ├── foto3.jpg
-│   ├── foto4.jpg
-│   ├── foto5.jpg
-│   └── foto6.jpg
-└── music/            # Folder for audio assets
-    └── lagu.mp3
+📁 project-anniversary/
+├── index.html
+├── README.md
+├── 📁 music/
+│   ├── happy.mp3
+│   └── romantis.mp3
+└── 📁 foto/
+    ├── momen3thn_1.jpg
+    ├── momen3thn_2.jpg
+    ├── momen3thn_majalengka.jpg
+    ├── momen3thn_kuningan.jpg
+    ├── momen3thn_center.jpg
+    ├── momen3thn_photobox1.jpg
+    ├── momen3thn_photobox2.jpg
+    ├── momen3thn_jalan.jpg
+    ├── momen3thn_senyum.jpg
+    ├── momen3thn_thumb1.jpg
+    ├── momen3thn_thumb2.jpg
+    └── momen3thn_thumb3.jpg
